@@ -1,0 +1,273 @@
+#include <stdio.h>
+int MAX=4,count;
+struct student
+{
+
+    char USN[10];
+    char NAME[30];
+    char BRANCH[5];
+    int SEM;
+    char PHNO[10];
+    struct student*next;
+};
+    typedef struct  student NODE;
+    int countnodes(NODE*head)
+    {
+
+        NODE*p;
+        count=0;
+        p=head;
+        while(p!=NULL)
+        {
+
+            p=p->next;
+            count++;
+        }
+        return count;
+    }
+    NODE*getnode(NODE*head)
+    {
+        NODE*newnode;
+        newnode=(NODE*)malloc(sizeof(NODE));
+        printf("\nEnter USN,NAME,BRANCH,SEM,PHNO\n");
+        scanf("%s",newnode->USN);
+        scanf("%s",newnode->NAME);
+       scanf("%s",newnode->BRANCH);
+        scanf("%d",&(newnode->SEM));
+        scanf("%s",newnode->PHNO);
+        newnode->next=NULL;
+        head=newnode;
+        return head;
+    }
+    NODE*display(NODE*head)
+    {
+
+        NODE *p;
+        if(head==NULL)
+            printf("\nNo student data\n");
+        else{
+            p=head;
+            printf("\n-----STUDENT DATA---");
+            printf("\nUSN\tNAME\tBRANCH\tSEM\tPHNO");
+            while(p!=NULL)
+            {
+
+                printf("\n%s\t%s\t%s\t%d\t%s",p->USN,p->NAME,p->BRANCH,p->SEM,p->PHNO);
+                p=p->next;
+            }
+            printf("\nThe no of nodes in list is %d",countnodes(head));
+        }
+        return head;
+    }
+    NODE*create(NODE*head)
+    {
+
+        NODE*newnode;
+        if(head==NULL)
+        {
+
+            newnode=getnode(head);
+            head=newnode;
+        }
+        else{
+            newnode=getnode(head);
+            newnode->next=head;
+            head=newnode;
+        }
+        return head;
+    }
+    NODE*insert_front(NODE*head)
+    {
+
+        if(countnodes(head)==MAX)
+            printf("\n list is Full //overflow!!");
+        else
+            head=create(head);
+        return head;
+    }
+    NODE*insert_rear(NODE*head)
+    {
+
+        NODE*p,*newnode;
+        p=head;
+        if(countnodes(head)==MAX)
+            printf("\n List is Full(QUEUE)!!");
+        else{
+            if(head==NULL)
+            {
+
+                newnode=getnode(head);
+                head=newnode;
+            }
+            else{
+                newnode=getnode(head);
+                while(p->next!=NULL)
+                {
+
+                    p=p->next;
+                }
+                p->next=newnode;
+            }
+        }
+        return head;
+    }
+    NODE*insert(NODE*head)
+    {
+
+        int ch;
+        do
+        {
+
+            printf("\n 1.insert at front(first)\t 2.insert at end(rear/last)\t 3.exit");
+            printf("\nEnter your choice:");
+            scanf("%d",&ch);
+            switch(ch)
+            {
+
+            case 1:head=insert_front(head);
+            break;
+            case 2:head=insert_rear(head);
+            break;
+            case 3:break;
+
+            }
+            head=display(head);
+        }
+        while(ch!=3);
+        return head;
+    }
+    NODE*delete_front(NODE*head)
+    {
+        NODE*p;
+        if(head==NULL)
+            printf("\n List is empty/underflow(stack/Queue)");
+        else
+        {
+
+            p=head;
+            head=head->next;
+            printf("\n Front(first)node is delete");
+        }
+        return head;
+
+        }
+        NODE*delete_rear(NODE*head)
+        {
+                NODE*p,*q;p=head;
+            while(p->next->next!=NULL)
+            {
+
+                p=p->next;
+            }
+             q=p->next;
+            free(q);
+            p->next=NULL;
+            printf("\n Last(end)entry is delete");
+            return head;
+        }
+        NODE*del(NODE*head)
+        {
+
+            int ch;
+            do{
+                printf("\n 1.delete from front(first)\t 2.delete from end(read/last)\t 3.exit");
+                       printf("\n Enter your choice:");
+                       scanf("%d",&ch);
+                       switch(ch)
+                       {
+
+                           case 1:head=delete_front(head);
+                           break;
+                           case 2:head=delete_rear(head);
+                           break;
+                           case 3:break;
+                       }
+                       head=display(head);
+            }
+            while(ch!=3);
+            return head;
+        }
+        NODE*stack(NODE*head)
+        {
+
+            int ch;
+            do{
+                printf("\n SSL used as stack.....");
+                printf("\n 1.insert at front(PUSH)\t 2.delete from front(POP)\t 3.exit");
+                printf("\n Enter your choice:");
+                scanf("%d",&ch);
+                switch(ch)
+                {
+
+                    case 1:head=insert_front(head);
+                    break;
+                    case 2:head=delete_front(head);
+                    break;
+                    case 3:break;
+                }
+                head=display(head);
+            }
+            while(ch!=3);
+            return head;
+        }
+        NODE*queue(NODE*head)
+        {
+
+            int ch;
+            do
+            {
+
+                printf("\n SSL used as queue.");
+                printf("\n 1.insert at rear(insert)\t 2.delete from front(delete)\t 3.exit");
+                printf("\n Enter your choice:");
+                scanf("%d",&ch);
+                switch(ch)
+                {
+
+                    case 1:head=insert_rear(head);
+                    break;
+                    case 2: head=delete_front(head);
+                    break;
+                    case 3:break;
+                }
+                head=display(head);
+            }
+            while(ch!=3);
+            return head;
+        }
+        void main()
+        {
+
+            int ch, i,n;
+            NODE*head;
+            head=NULL;
+            printf("\n ------------student database----------*");
+            do
+            {
+
+                printf("\n 1.create\t 2.display\t 3.insert\t 4.delete\t 5.stack\t 6.queue\t 7.exit");
+                printf("\nEnter your choice:");
+                scanf("%d",&ch);
+                switch(ch)
+                {
+
+                    case 1:printf("\n how many student data you want to create:");
+                    scanf("%d",&n);
+                    for(i=0;i<n;i++)
+                        head=create(head);
+                    break;
+                    case 2:head=display(head);
+                    break;
+                    case 3:head=insert(head);
+                    break;
+                    case 4:head=del(head);
+                    break;
+                    case 5:head=stack(head);
+                    break;
+                    case 6:head=queue(head);
+                    break;
+                    case 7:exit(0);
+                }
+            }
+            while(ch!=7);
+        }
