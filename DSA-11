@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int a[10][10], n, m;
+int visited[10], b[10];
+int source, i, j;
+
+/* Create Graph */
+void create()
+{
+    printf("\nEnter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("\nEnter adjacency matrix:\n");
+    for(i = 1; i <= n; i++)
+        for(j = 1; j <= n; j++)
+            scanf("%d", &a[i][j]);
+}
+
+/* BFS */
+void bfs()
+{
+    int q[10], front = 0, rear = -1;
+
+    for(i = 1; i <= n; i++)
+        visited[i] = 0;
+
+    printf("\nEnter source vertex: ");
+    scanf("%d", &source);
+
+    q[++rear] = source;
+    visited[source] = 1;
+
+    printf("\nReachable vertices: %d", source);
+
+    while(front <= rear)
+    {
+        int u = q[front++];
+
+        for(i = 1; i <= n; i++)
+        {
+            if(a[u][i] == 1 && visited[i] == 0)
+            {
+                visited[i] = 1;
+                q[++rear] = i;
+                printf(" %d", i);
+            }
+        }
+    }
+}
+
+/* DFS */
+void dfs(int v)
+{
+    int i;
+    b[v] = 1;
+
+    for(i = 1; i <= n; i++)
+        if(a[v][i] == 1 && b[i] == 0)
+            dfs(i);
+}
+
+/* Main */
+int main()
+{
+    int ch;
+
+    while(1)
+    {
+        printf("\n\n1.Create Graph");
+        printf("\n2.BFS");
+        printf("\n3.Check Graph Connected (DFS)");
+        printf("\n4.Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &ch);
+
+        switch(ch)
+        {
+            case 1:
+                create();
+                break;
+
+            case 2:
+                bfs();
+                for(i = 1; i <= n; i++)
+                    if(visited[i] == 0)
+                        printf("\nVertex %d is NOT reachable", i);
+                break;
+
+            case 3:
+                printf("\nEnter source vertex: ");
+                scanf("%d", &source);
+
+                for(i = 1; i <= n; i++)
+                    b[i] = 0;
+
+                dfs(source);
+
+                m = 1;
+                for(i = 1; i <= n; i++)
+                    if(b[i] == 0)
+                        m = 0;
+
+                if(m == 1)
+                    printf("\nGraph is Connected");
+                else
+                    printf("\nGraph is NOT Connected");
+                break;
+
+            default:
+                exit(0);
+        }
+    }
+}
