@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+
+class Bank
+{
+    char name[30];
+    int account_no;
+    float balance;
+
+public:
+    void getData()
+    {
+        cout << "Enter Employee Name: ";
+        cin >> name;
+        cout << "Enter Account Number: ";
+        cin >> account_no;
+        cout << "Enter Balance Amount: ";
+        cin >> balance;
+
+        if(balance < 500)
+            cout << "Invalid Balance (Minimum balance should be 500)\n";
+    }
+
+    void display()
+    {
+        cout << "\n--- Account Details ---\n";
+        cout << "Employee Name : " << name << endl;
+        cout << "Account No    : " << account_no << endl;
+        cout << "Balance       : " << balance << endl;
+    }
+
+    void deposit()
+    {
+        float amt;
+        cout << "\nEnter amount to deposit: ";
+        cin >> amt;
+        balance += amt;
+        cout << "Balance after deposit: " << balance << endl;
+    }
+
+    void withdraw()
+    {
+        float amt;
+        cout << "\nEnter amount to withdraw: ";
+        cin >> amt;
+
+        if(balance - amt < 500)
+            cout << "Withdrawal not allowed (Minimum balance 500 required)\n";
+        else
+        {
+            balance -= amt;
+            cout << "Balance after withdrawal: " << balance << endl;
+        }
+    }
+};
+
+int main()
+{
+    Bank b;
+
+    b.getData();
+    b.display();
+    b.deposit();
+    b.withdraw();
+
+    return 0;
+}
