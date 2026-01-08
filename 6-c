@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+class Number
+{
+    int x;
+
+public:
+    void getData()
+    {
+        cout << "Enter a number: ";
+        cin >> x;
+    }
+
+    void display()
+    {
+        cout << "Value of x = " << x << endl;
+    }
+
+    /* Overloading unary minus operator */
+    void operator -()
+    {
+        x = -x;
+    }
+};
+
+int main()
+{
+    Number n;
+
+    n.getData();
+
+    cout << "\nBefore applying unary minus:\n";
+    n.display();
+
+    -n;   // unary minus operator overloaded
+
+    cout << "\nAfter applying unary minus:\n";
+    n.display();
+
+    return 0;
+}
