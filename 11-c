@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+/* Function that throws exception */
+int divide(int a, int b)
+{
+    if (b == 0)
+        throw 1;     // throw exception
+
+    return a / b;
+}
+
+int main()
+{
+    int x, y;
+
+    cout << "Enter two numbers: ";
+    cin >> x >> y;
+
+    try
+    {
+        cout << "Result = " << divide(x, y) << endl;
+    }
+    catch (int)
+    {
+        cout << "Exception caught: Division by zero" << endl;
+    }
+
+    return 0;
+}
