@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+class Student
+{
+    char name[30];
+    int roll;
+    int m1, m2;
+    int total;
+
+public:
+    void getData()
+    {
+        cout << "Enter Student Name: ";
+        cin >> name;
+        cout << "Enter Roll Number: ";
+        cin >> roll;
+        cout << "Enter Marks in Subject 1: ";
+        cin >> m1;
+        cout << "Enter Marks in Subject 2: ";
+        cin >> m2;
+
+        total = m1 + m2;
+    }
+
+    void display()
+    {
+        cout << "\n--- Student Details ---\n";
+        cout << "Name        : " << name << endl;
+        cout << "Roll Number : " << roll << endl;
+        cout << "Subject 1   : " << m1 << endl;
+        cout << "Subject 2   : " << m2 << endl;
+        cout << "Total Marks : " << total << endl;
+    }
+};
+
+int main()
+{
+    Student s;
+    s.getData();
+    s.display();
+    return 0;
+}
