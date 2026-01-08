@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n, a[50], i, j, temp;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements:\n";
+    for(i = 0; i < n; i++)
+        cin >> a[i];
+
+    /* Ascending Order */
+    for(i = 0; i < n - 1; i++)
+    {
+        for(j = i + 1; j < n; j++)
+        {
+            if(a[i] > a[j])
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+
+    cout << "\nElements in Ascending Order:\n";
+    for(i = 0; i < n; i++)
+        cout << a[i] << " ";
+
+    /* Descending Order */
+    for(i = 0; i < n - 1; i++)
+    {
+        for(j = i + 1; j < n; j++)
+        {
+            if(a[i] < a[j])
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+
+    cout << "\n\nElements in Descending Order:\n";
+    for(i = 0; i < n; i++)
+        cout << a[i] << " ";
+
+    return 0;
+}
